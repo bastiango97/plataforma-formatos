@@ -1,0 +1,80 @@
+/* Container for the Folder Page */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px !important; /* Ensure increased max-width is applied */
+  padding: 40px !important;
+  margin: 0 auto;
+  margin-top: 30px !important; /* Ensure increased margin */
+}
+
+/* Breadcrumb styling */
+.breadcrumb {
+  width: 100%;
+  margin-bottom: 50px !important; /* Ensure increased margin */
+  font-size: 32px !important; /* Ensure increased breadcrumb font size */
+  color: #333;
+  text-align: left;
+}
+
+.breadcrumb-link {
+  color: blue !important;
+  text-decoration: none;
+  font-weight: bold !important; /* Ensure bold is applied */
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline !important;
+}
+
+h2 {
+  font-size: 48px !important; /* Ensure increased heading size */
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 40px !important; /* Ensure increased margin */
+  text-align: center;
+}
+
+/* Format grid for displaying format cards */
+.format-grid {
+  display: flex !important;
+  gap: 40px !important; /* Ensure gap between cards */
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.format-card {
+  width: 300px !important; /* Ensure increased card width */
+  height: 400px !important; /* Ensure increased card height */
+  background-color: #f4f4f4 !important;
+  border-radius: 15px !important; /* Ensure border radius is applied */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important; /* Ensure shadow is applied */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.3s !important;
+}
+
+.format-card:hover {
+  transform: translateY(-10px) !important; /* Ensure hover effect */
+}
+
+.format-icon {
+  font-size: 100px !important; /* Ensure increased icon size */
+  margin-bottom: 20px !important; /* Ensure margin below icon */
+}
+
+.format-name {
+  font-weight: bold !important;
+  font-size: 24px !important; /* Ensure increased font size */
+  padding: 10px !important;
+}
+
+.format-link {
+  text-decoration: none !important;
+  color: inherit;
+}

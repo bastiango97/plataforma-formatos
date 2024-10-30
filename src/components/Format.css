@@ -1,0 +1,102 @@
+/* Shared container for both Folder and Format */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    margin: 0 auto;
+    margin-top: 10px; /* Adjust as needed */
+  }
+  
+  /* Breadcrumb styling */
+  .breadcrumb {
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+  }
+  
+  .breadcrumb-link {
+    color: blue;
+    text-decoration: none;
+  }
+  
+  .breadcrumb-link:hover {
+    text-decoration: underline;
+  }
+  
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  p {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Format grid for displaying format cards */
+  .format-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .format-card {
+    width: 150px;
+    height: 200px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  
+  .format-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .format-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+  
+  .format-name {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+  }
+  
+  .format-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* Target the ul container of the buttons */
+.formio-wizard-nav-container {
+  display: flex;
+  justify-content: center; /* Center the buttons */
+  gap: 10px; /* Add space between the buttons */
+  list-style: none; /* Remove bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+/* Optional: Style individual buttons if needed */
+.formio-wizard-nav-container .btn {
+  flex: 0 1 auto; /* Ensure buttons resize properly */
+}
