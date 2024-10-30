@@ -19,16 +19,23 @@ h2 {
 }
 
 .folder-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Create responsive grid */
+  display: flex; /* Use flexbox to ensure cards are responsive but keep their size */
+  flex-wrap: wrap; /* Wrap cards into new rows if necessary */
   gap: 20px; /* Space between cards */
-  justify-content: center;
+  justify-content: center; /* Center the cards horizontally */
   max-width: 1200px; /* Ensure the grid doesn't stretch too wide */
   padding: 0 20px;
 }
 
+/* Add a media query for smaller screens */
+@media (max-width: 768px) {
+  .folder-grid {
+    justify-content: center; /* Keep the cards centered on small screens */
+  }
+}
+
 .folder-card {
-  width: 100%; /* Let the grid control the width */
+  width: 300px; /* Fix the width to 300px for all screen sizes */
   height: 250px; /* Fixed height for uniform cards */
   background-color: #f4f4f4;
   border-radius: 15px; /* Slightly increased border radius */
@@ -39,6 +46,7 @@ h2 {
   justify-content: center;
   text-align: center;
   transition: transform 0.3s;
+  flex-shrink: 0; /* Prevent the card from shrinking */
 }
 
 .folder-card:hover {
