@@ -10,23 +10,40 @@ const Register = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
+        confirmPassword: '',
         firstName: '',
         lastName: ''
     });
     const [errorMessage, setErrorMessage] = useState('');
+    const [passwordMismatch, setPasswordMismatch] = useState(false); // State for password mismatch validation
     const [isVerificationSent, setIsVerificationSent] = useState(false); // State for verification message
     const navigate = useNavigate();
 
     const handleChange = (e) => {
+        const { name, value } = e.target;
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            [name]: value
         });
+
+        if (name === 'confirmPassword' || name === 'password') {
+            setPasswordMismatch(
+                name === 'confirmPassword'
+                    ? value !== formData.password
+                    : formData.confirmPassword !== value
+            );
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrorMessage('');
+
+        if (passwordMismatch) {
+            setErrorMessage('Las contraseñas no coinciden.');
+            return;
+        }
+
         try {
             const response = await fetch(`${API_BASE_URL}/register`, {
                 method: 'POST',
@@ -84,7 +101,22 @@ const Register = () => {
                             onChange={handleChange}
                             required
                         />
-                        <button type="submit">Registrarse</button>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            placeholder="Confirmar Contraseña"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            required
+                        />
+                        {passwordMismatch && (
+                            <p className="password-mismatch-message">
+                                Las contraseñas no coinciden.
+                            </p>
+                        )}
+                        <button type="submit" disabled={passwordMismatch}>
+                            Registrarse
+                        </button>
                         {errorMessage && <p className="error-message">{errorMessage}</p>}
                     </form>
                     <p className="login-link">
