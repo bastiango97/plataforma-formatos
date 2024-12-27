@@ -1,0 +1,89 @@
+/* src/pages/VerifyAccount.css */
+
+/* General Page Styles */
+.verify-account-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f7fa;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Card Layout */
+.verify-card {
+    text-align: center;
+    width: 400px;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+/* Status-specific Styles */
+.verify-card.loading {
+    border-top: 4px solid #f39c12;
+}
+
+.verify-card.success {
+    border-top: 4px solid #28a745;
+}
+
+.verify-card.error {
+    border-top: 4px solid #dc3545;
+}
+
+/* Headings */
+.verify-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+/* Paragraph */
+.verify-card p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+/* Buttons */
+.button-primary,
+.button-secondary {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.button-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.button-primary:hover {
+    background-color: #0056b3;
+}
+
+.button-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.button-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .verify-card {
+        width: 90%;
+    }
+
+    .verify-card h2 {
+        font-size: 1.5rem;
+    }
+}

@@ -68,3 +68,17 @@ h2 {
     font-size: 0.9em;
     margin-top: 10px;
 }
+
+.verification-message {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.verification-message h2 {
+    margin-bottom: 10px;
+}
+
+.verification-message p {
+    font-size: 1rem;
+    margin: 5px 0;
+}

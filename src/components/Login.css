@@ -68,3 +68,30 @@ h2 {
     font-size: 0.9em;
     margin-top: 10px;
 }
+
+/* src/pages/Login.css */
+
+.forgot-password-link {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.forgot-password-link button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.forgot-password-link button:hover {
+    color: #0056b3;
+}
+
+/* Success Message */
+.success-message {
+    color: green;
+    font-size: 0.9em;
+    margin-top: 10px;
+}

@@ -7,6 +7,10 @@ import Format from './components/Format';
 import Register from './components/Register';
 import Login from './components/Login';
 import ProtectedRoute from './components/ProtectedRoute';
+import VerifyAccount from './components/VerifyAccount';
+import ResetPassword from './components/ResetPassword';
+
+
 
 function App() {
   return (
@@ -16,6 +20,8 @@ function App() {
           {/* Public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/verify-account" element={<VerifyAccount />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           {/* Protected routes */}
           <Route path="/" element={<ProtectedRoute><Hub /></ProtectedRoute>} />
