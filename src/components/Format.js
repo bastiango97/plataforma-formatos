@@ -1,10 +1,9 @@
-// src/components/Format.js
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Formio } from 'formiojs';
-import { createPDF } from '../pdfUtils'; // Import the createPDF function
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap for form.io form
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './Format.css';
+
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const Format = () => {
@@ -17,13 +16,13 @@ const Format = () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/formats/${companyId}/${formatId}`, {
                     method: 'GET',
-                    credentials: 'include' // Include credentials for cookie-based auth
+                    credentials: 'include',
                 });
                 if (!response.ok) {
                     throw new Error('Failed to fetch format details');
                 }
                 const data = await response.json();
-                setFormatDetails(data); // Store format details in state
+                setFormatDetails(data);
             } catch (err) {
                 console.error(err);
                 setError('Error fetching format details');
@@ -35,25 +34,62 @@ const Format = () => {
 
     useEffect(() => {
         if (formatDetails?.api_link) {
-            // Create the form and capture the form instance
-            const formInstance = Formio.createForm(document.getElementById('formio'), formatDetails.api_link);
+            const formInstance = Formio.createForm(
+                document.getElementById('formio'),
+                formatDetails.api_link
+            );
 
-            // Set up an event listener to capture submission data and generate the PDF
-            formInstance.then(form => {
-                form.on('submit', (submission) => {
-                    console.log('Form submission data:', submission.data);
+            formInstance.then((form) => {
+                form.on('submit', async (submission) => {
+                    console.log('Form submission data:', submission);
+                    //Generate formID
+                    const formioProject = new Formio(formatDetails.api_link);
+                    const formId = await formioProject.getFormId();
+                    try {
+                        const submissionId = submission._id;
+                        if (!submissionId) {
+                            throw new Error('Submission ID is missing');
+                        }
+                        
+                        // Call backend endpoint to generate the download link
+                        const response = await fetch(`${API_BASE_URL}/generate-download-link`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                formId,
+                                submissionId,
+                            }),
+                        });
 
-                    // Call the createPDF function with the format data
-                    createPDF(companyId.toUpperCase(), formatId.replace("-", " "), submission.data, formatDetails.pdf_filename, formatDetails.pdf_data);
+                        if (!response.ok) {
+                            throw new Error('Failed to generate download link');
+                        }
+
+                        const { downloadLink } = await response.json();
+
+                        // Trigger download
+                        const link = document.createElement('a');
+                        link.href = downloadLink;
+                        link.target = '_blank';
+                        link.download = 'Filled-Form.pdf';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    } catch (error) {
+                        console.error('Error generating PDF download URL:', error);
+                        setError('Failed to generate PDF download URL');
+                    }
                 });
 
-                // Translate button text after form is rendered
+                // Translate buttons after rendering
                 form.on('render', () => {
                     const cancelButton = document.querySelector('.btn-wizard-nav-cancel');
                     const previousButton = document.querySelector('.btn-wizard-nav-previous');
                     const nextButton = document.querySelector('.btn-wizard-nav-next');
                     const submitButton = document.querySelector('.btn-wizard-nav-submit');
-                    
+
                     if (cancelButton) cancelButton.innerHTML = 'Cancelar';
                     if (previousButton) previousButton.innerHTML = 'Anterior';
                     if (nextButton) nextButton.innerHTML = 'Siguiente';
@@ -61,7 +97,7 @@ const Format = () => {
                 });
             });
         }
-    }, [formatDetails, companyId, formatId]);
+    }, [formatDetails]);
 
     if (error) return <div>{error}</div>;
     if (!formatDetails) return <div>Loading...</div>;
