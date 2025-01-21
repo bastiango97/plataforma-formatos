@@ -23,14 +23,18 @@ const Format = () => {
                 }
                 const data = await response.json();
                 setFormatDetails(data);
+    
+                // Log or utilize the format_id
+                console.log('Fetched format ID:', data.format_id);
             } catch (err) {
                 console.error(err);
                 setError('Error fetching format details');
             }
         };
-
+    
         fetchFormatDetails();
-    }, [companyId, formatId]);
+    }, [ companyId, formatId]); 
+    
 
     useEffect(() => {
         if (formatDetails?.api_link) {
@@ -41,6 +45,7 @@ const Format = () => {
 
             formInstance.then((form) => {
                 form.on('submit', async (submission) => {
+                    const formatoId = formatDetails?.format_id;
                     console.log('Form submission data:', submission);
                     //Generate formID
                     const formioProject = new Formio(formatDetails.api_link);
@@ -50,7 +55,26 @@ const Format = () => {
                         if (!submissionId) {
                             throw new Error('Submission ID is missing');
                         }
-                        
+                        // Call backend to create a registration
+                        const registrationResponse = await fetch(`${API_BASE_URL}/create-registration`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            credentials: 'include',
+                            body: JSON.stringify({
+                                format_id: formatoId, // Replace with correct formatDetails field
+                                form_id: formId,
+                                submission_id: submissionId,
+                                notes: 'Submitted through frontend', // Optional notes field
+                            }),
+                        });
+
+                        if (!registrationResponse.ok) {
+                            throw new Error('Failed to create registration');
+                        }
+
+                        console.log('Registration created successfully');
                         // Call backend endpoint to generate the download link
                         const response = await fetch(`${API_BASE_URL}/generate-download-link`, {
                             method: 'POST',

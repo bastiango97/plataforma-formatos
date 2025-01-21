@@ -9,6 +9,8 @@ import Login from './components/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import VerifyAccount from './components/VerifyAccount';
 import ResetPassword from './components/ResetPassword';
+import Consultas from './components/Consultas';
+
 
 
 
@@ -27,6 +29,7 @@ function App() {
           <Route path="/" element={<ProtectedRoute><Hub /></ProtectedRoute>} />
           <Route path="/folder/:companyId" element={<ProtectedRoute><Folder /></ProtectedRoute>} />
           <Route path="/folder/:companyId/format/:formatId" element={<ProtectedRoute><Format /></ProtectedRoute>} />
+          <Route path="/consultas" element={<ProtectedRoute><Consultas /></ProtectedRoute>} />
         </Routes>
       </div>
     </Router>

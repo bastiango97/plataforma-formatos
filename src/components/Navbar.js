@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Menu, MenuItem, Typography, Box } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -37,9 +37,27 @@ const Navbar = () => {
     return (
         <AppBar position="static" style={{ backgroundColor: '#f8f9fa', color: '#333' }}>
             <Toolbar>
-                <Typography variant="h6" component={Link} to="/" style={{ textDecoration: 'none', color: '#333', flexGrow: 1 }}>
-                    Formatos
-                </Typography>
+                {/* Align links to the left */}
+                <Box sx={{ display: 'flex', flexGrow: 1 }}>
+                    <Typography
+                        variant="h6"
+                        component={Link}
+                        to="/"
+                        style={{ textDecoration: 'none', color: '#333', marginRight: '20px' }}
+                    >
+                        Formatos
+                    </Typography>
+                    <Typography
+                        variant="h6"
+                        component={Link}
+                        to="/consultas"
+                        style={{ textDecoration: 'none', color: '#333', marginRight: '20px' }}
+                    >
+                        Consultas
+                    </Typography>
+                </Box>
+
+                {/* Account icon stays on the right */}
                 <IconButton
                     edge="end"
                     aria-label="account of current user"
@@ -48,7 +66,7 @@ const Navbar = () => {
                     onClick={handleMenuOpen}
                     color="inherit"
                 >
-                    <AccountCircle sx={{ fontSize: 50 }} /> {/* Icon size adjusted here */}
+                    <AccountCircle sx={{ fontSize: 50 }} />
                 </IconButton>
                 <Menu
                     id="profile-menu"
