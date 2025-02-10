@@ -10,6 +10,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import VerifyAccount from './components/VerifyAccount';
 import ResetPassword from './components/ResetPassword';
 import Consultas from './components/Consultas';
+import FilledSubmission from './components/FilledSubmission';
+
 
 
 
@@ -30,6 +32,7 @@ function App() {
           <Route path="/folder/:companyId" element={<ProtectedRoute><Folder /></ProtectedRoute>} />
           <Route path="/folder/:companyId/format/:formatId" element={<ProtectedRoute><Format /></ProtectedRoute>} />
           <Route path="/consultas" element={<ProtectedRoute><Consultas /></ProtectedRoute>} />
+          <Route path="/filled-submission/:formName/:submissionId" element={<FilledSubmission />} />
         </Routes>
       </div>
     </Router>

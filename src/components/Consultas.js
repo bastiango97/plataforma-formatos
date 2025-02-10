@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Formio } from 'formiojs';
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const Consultas = () => {
@@ -54,6 +55,7 @@ const Consultas = () => {
                         <p><strong>Submitted:</strong> {new Date(submission.created_at).toLocaleString()}</p>
                         <p><strong>Status:</strong> {submission.status}</p>
                         <p><strong>Notes:</strong> {submission.notes || 'N/A'}</p>
+                        
                         <button
                             onClick={async () => {
                                 try {
@@ -86,6 +88,26 @@ const Consultas = () => {
                             }}
                         >
                             Download PDF
+                        </button>
+
+                        <button
+                            onClick={async () => {
+                                try {
+                                    // Fetch the form name using the form ID
+                                    const response = await fetch(`${API_BASE_URL}/form-name/${submission.form_id}`);
+                                    if (!response.ok) {
+                                        throw new Error('Failed to fetch form name');
+                                    }
+                                    const { formName } = await response.json();
+
+                                    // Open the new tab with the correct form name and submission ID
+                                    window.open(`/filled-submission/${formName}/${submission.submission_id}`, '_blank');
+                                } catch (error) {
+                                    console.error('Error fetching form name:', error);
+                                }
+                            }}
+                        >
+                            Open Filled Submission
                         </button>
                     </div>
                 ))}
